@@ -178,7 +178,7 @@ def score(up_gene, sample, down_gene = False, norm_method = 'standard',
 
 
     try:
-        data = pandas.DataFrame()
+        templist = []
 
         # if up_gene and/or down_gene are a path to txt file then gene_path =
         # True and use getsignature function to open and generate a list of
@@ -280,12 +280,8 @@ def score(up_gene, sample, down_gene = False, norm_method = 'standard',
                 temp_df = pandas.DataFrame({'total_score':total_score},
                                            index=[i])
 
-            if len(data.columns) == 0:
-                data = temp_df
-
-            else:
-                data = data.append(temp_df)
-        return data
+            templist.append(temp_df)
+        return pandas.concat(templist)
 
     except:
         logger.exception('The gene identifiers are not of the same type.')
